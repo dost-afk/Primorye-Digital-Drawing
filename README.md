@@ -14,6 +14,8 @@ Primorye Digital Drawing — программа для цифрового рис
 
 Результатом выполненной работы является программа "Primorye Digital Drawing" на Python.
 
+## Пока что программу можно скачать бесплатно, но уже спустя месяц она будет стоить 300 рублей. Не упустите такую возможность!
+
 ![Интерфейс развернутый](https://github.com/dost-afk/Primorye-Digital-Drawing/blob/66ef6e0d4b976cd97a01853b566b1e9a2b2d926e/open.png)
 
 ![Интерфейс свернутый](https://github.com/dost-afk/Primorye-Digital-Drawing/blob/66ef6e0d4b976cd97a01853b566b1e9a2b2d926e/closed.jpg)
