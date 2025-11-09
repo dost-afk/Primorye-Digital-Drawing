@@ -1,0 +1,138 @@
+# -------------------------------------------------
+# ИНСТРУКЦИЯ
+# -------------------------------------------------
+# программа рисует картинками из папки ./data,
+# которая должна находится рядом с папкой программы
+# ------------------------------------------------- 
+# Клавиша X - стирает экран (заливает случайным цветом)
+# Клавиша B - стирает экран (заливает черным цветом)
+# Клавиша С - переключает режим - COLOR / GRAYSCALE
+# Клавиша M - включает и выключает режим RANDOM_MODE
+# Клавиши 1-9 переключают изображения
+# -------------------------------------------------
+# НАСТРОЙКИ ПО УМОЛЧАНИЮ 
+# -------------------------------------------------
+COLOR_MODE = False
+ROTATE_MODE = True
+RANDOM_MODE = False
+# -------------------------------------------------
+
+oldX=0
+oldY=0
+startDraw = True
+currentBrush = 3
+
+def setup():
+    # объявляем глобальные переменные, где будем хранить
+    # все наши картинки
+    global im0,im1,im2,im3,im4,im5,im6,im7,im8,im9
+        
+    size(1920,1800)
+    backgroundToRandomColor()
+    
+    # загружаем все картинки
+    im0 = loadImage('animals/img-0.png')
+    im1 = loadImage('animals/img-1.png')
+    im2 = loadImage('animals/img-2.png')
+    im3 = loadImage('animals/img-3.png')
+    im4 = loadImage('animals/img-4.png')
+    im5 = loadImage('animals/img-5.png')
+    im6 = loadImage('animals/img-6.png')
+    im7 = loadImage('animals/img-7.png')
+    im8 = loadImage('animals/img-8.png')
+    im9 = loadImage('animals/img-9.png')    
+    
+
+# Чтобы код выполнялся постоянно, а не один раз
+# нам нужно оставить эту функцию, хоть мы ей и 
+# пользуемся в этот раз  
+def draw():
+    pass
+    
+# рисуем картинку один раз, если нажали мышкой    
+def mousePressed():    
+    draw_pict(mouseX,mouseY,10)
+
+# рисуем картинку каждый раз, когда нажали мышкой и тащим    
+def mouseDragged():        
+    draw_pict(mouseX,mouseY,10)        
+
+# главная наша функция рисования, которая на вход
+# принимает позицию (x,y) и размер картинки в писелях
+def draw_pict(x,y,s):    
+    global COLOR_MODE, ROTATE_MODE, RANDOM_MODE
+    global oldX,oldY
+    global im1,im2,im3,im4,im5,im6,im7,im8,im9
+    global currentBrush
+    global startDraw
+          
+    if(RANDOM_MODE==True):    
+        currentBrush = int(random(9))    
+    
+    # сохраняем все изображения в список,
+    # чтобы можно было их вызывать по номеру (индексу)
+
+    # # Создаем копию изображения для работы
+    # bw_img = img.get()    
+    # # Преобразуем копию в черно-белую
+    # bw_img.filter(GRAY)
+        
+    ims = [im0,im1,im2,im3,im4,im5,im6,im7,im8,im9]
+        
+    # если мы только начали рисовать
+    # возьмем минимальный размер кисти    
+    if(startDraw == True):
+        d = .4
+    else:        
+        # иначе, вычислим расстояние по теореме Пифагора
+        d = calc_distance(x,y,oldX,oldY)/3            
+                        
+    brush = ims[currentBrush].get()
+    if(COLOR_MODE==False):
+        brush.filter(GRAY)
+     
+    if(ROTATE_MODE!=True):        
+        image(brush,x-s/2*d,y-s/2*d,s*d,s*d)
+    else:
+        ang = map(mouseX,0,width,0,-5)
+        pushMatrix()
+        translate(x, y)
+        rotate(PI*ang)
+        image(brush,0-s/2,0-s/2,s*d,s*d)        
+        popMatrix()    
+                        
+    startDraw = False
+    oldX = x
+    oldY = y
+    
+def calc_distance(x1,y1,x2,y2):
+    dist = sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    return dist
+
+def mouseReleased():
+    global startDraw
+    startDraw = True
+
+def backgroundToRandomColor():
+    r = random(250)
+    g = random(250)
+    b = random(250)
+    fill(r,g,b)        
+    rect(0, 0, width, height)    
+    
+def keyPressed():
+    global COLOR_MODE, ROTATE_MODE, RANDOM_MODE, currentBrush
+    if(key.isnumeric()):
+        currentBrush = int(key)
+        RANDOM_MODE=False
+    if(key=='x'):
+        backgroundToRandomColor()       
+    if(key=='r'):
+        ROTATE_MODE = not ROTATE_MODE
+    if(key=='b'):
+        fill(0)
+        rect(0,0,width,height)
+    if(key=='c'):
+        COLOR_MODE = not COLOR_MODE
+    if(key=='m'):
+        RANDOM_MODE = not RANDOM_MODE
