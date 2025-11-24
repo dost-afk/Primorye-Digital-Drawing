@@ -16,6 +16,10 @@ Primorye Digital Drawing — программа для цифрового рис
 
 ## Пока что программу можно скачать бесплатно, но уже спустя месяц она будет стоить 300 рублей. Не упустите такую возможность!
 
+##   
+
+Также вы можете посетить страницу моей коллеги, на которой тоже рассказано о проекте: github.com/kaspershi/Open-Primorsky-Krai
+
 ![Интерфейс развернутый](https://github.com/dost-afk/Primorye-Digital-Drawing/blob/66ef6e0d4b976cd97a01853b566b1e9a2b2d926e/open.png)
 
 ![Интерфейс свернутый](https://github.com/dost-afk/Primorye-Digital-Drawing/blob/66ef6e0d4b976cd97a01853b566b1e9a2b2d926e/closed.jpg)
